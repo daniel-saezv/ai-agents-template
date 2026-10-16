@@ -18,10 +18,10 @@ permissions:
   contents: read
   issues: write
   pull-requests: read
+  id-token: write
 
 jobs:
   orchestrate:
     uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@main
     with:
       issue_number: ${{ inputs.issue_number || '' }}
-    secrets: inherit

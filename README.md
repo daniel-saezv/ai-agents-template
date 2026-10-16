@@ -8,9 +8,13 @@ El motor y sus pruebas permanecen en el repositorio central: no copies `scripts/
 
 1. En GitHub, abre **Settings → General** de este repositorio y activa **Template repository**. Esa opcion no se puede establecer desde los archivos del repositorio.
 2. Configura el acceso del repositorio central privado `AI-Agents` para permitir que este repositorio consuma sus workflows reutilizables (**Settings → Actions → General → Access** en `AI-Agents`).
-3. En **Settings → Secrets and variables → Actions** de este repositorio, crea `COPILOT_AGENT_TOKEN` con un token que pueda iniciar sesiones de Copilot cloud agent y tenga acceso al repositorio.
+3. Configura una sola vez en el workflow central `AI-Agents` los identificadores no secretos del proveedor OIDC, service account y proyecto de Google Cloud. El workflow central obtiene `COPILOT_AGENT_TOKEN` desde Secret Manager; no se requiere una clave de Google ni un secreto PAT en cada consumidor.
 4. Activa Copilot cloud agent para el repositorio si tu plan lo requiere.
 5. Personaliza `.github/copilot-instructions.md` con las convenciones y comandos de prueba del proyecto.
+
+El workflow incluido concede `id-token: write`, necesario para que GitHub emita la identidad OIDC de corta duración. Los repositorios existentes deben actualizar su workflow invocador con ese permiso. El workflow central no acepta PATs pasados por los repositorios consumidores: obtiene el token únicamente desde Secret Manager mediante OIDC.
+
+Si el repositorio restringe las Actions permitidas, autoriza `google-github-actions/auth` y `google-github-actions/get-secretmanager-secrets` en la politica aplicable al consumidor. El acceso para invocar el workflow privado de `AI-Agents` se habilita por separado en los Settings del repositorio central.
 
 ## Crear un repositorio desde la plantilla
 
