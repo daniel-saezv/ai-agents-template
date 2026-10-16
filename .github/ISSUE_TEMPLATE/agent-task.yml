@@ -1,6 +1,6 @@
 name: Tarea para agentes
 description: Arranca el bucle de Copilot. Sirve desde GitHub Mobile.
-title: ""
+title: "Tarea para agentes"
 labels:
   - agent-loop
 body:
