@@ -29,6 +29,15 @@ concurrency:
 
 jobs:
   orchestrate:
+    if: github.event_name != 'push'
     uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@main
     with:
       issue_number: ${{ inputs.issue_number || '' }}
+  relay:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish the agent handoff
+        uses: daniel-saezv/AI-Agents@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
