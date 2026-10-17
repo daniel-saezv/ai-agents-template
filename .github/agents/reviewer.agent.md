@@ -20,7 +20,7 @@ Si hay criterios `BOOT`, aplica tambien las comprobaciones de revision de `.gith
 Devuelve:
 
 ```text
-ESTADO: <approved|changes-requested>
+ESTADO: <approved|changes-requested|blocked|needs-human>
 Revision: <SHA revisado y SHA anterior si procede>
 Bloqueantes:
 - <AC, ruta y linea>: <problema e impacto> -> <condicion verificable para resolverlo>
@@ -28,4 +28,4 @@ Sugerencias (no bloquean):
 - <opcional>
 ```
 
-Usa `ESTADO: blocked` o `ESTADO: needs-human` si no puedes revisar.
+Usa `blocked` o `needs-human` solo si no puedes revisar, y explica que falta.

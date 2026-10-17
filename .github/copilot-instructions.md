@@ -4,8 +4,6 @@ El agente `developer` lleva cada issue en una sola sesion y verifica su trabajo 
 
 ## Proyecto
 
-Completa esta seccion: QA y el implementador la usan.
-
 - Build: `<comando>`
 - Pruebas: `<comando>`
-- Convenciones: `<estilo, carpetas, etc.>`
+- Arrancar (opcional): `<comando>` en `<URL local>`; salud: `<comprobacion>`
