@@ -18,9 +18,11 @@ Eres QA del bucle de desarrollo. Compruebas el pull request contra los criterios
 
 ## Cierre obligatorio
 
-No comentes en la issue y no pidas `issue` ni `nonce`: el encargo los trae como `Handoff issue:` y `Handoff nonce:`. Escribe lo comprobado en `.github/agent-loop-handoff.md`, empieza con un comentario HTML `agent-loop-handoff` que copie esos valores y termina con este bloque. `status` debe ser `passed`, `failed`, `blocked` o `needs-human`.
+No comentes en la issue y no pidas `issue` ni `nonce`. Escribe lo comprobado en `.github/agent-loop-handoff.md`, en la rama del pull request. Copia las lineas `issue:` y `nonce:` del encargo. `status` debe ser `passed`, `failed`, `blocked` o `needs-human`.
 
-```agent-handoff
+```text
+issue: 9
+nonce: el-del-encargo
 from: qa
 status: passed
 summary: frase corta en espanol
