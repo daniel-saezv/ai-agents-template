@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Al crear esta issue, el planificador arranca solo si el repositorio ya tiene el secreto `COPILOT_AGENT_TOKEN`. El bucle no fusiona: tu revisas el pull request al final. GitHub no incluye este texto en la issue; el selector siguiente si, y es lo que arranca el workflow.
+        Al crear esta issue arranca el planificador. Luego siguen implementacion, revision y QA. El bucle no fusiona: tu revisas el pull request al final. El selector siguiente es lo que arranca el workflow.
   - type: dropdown
     id: agent-loop
     attributes:
