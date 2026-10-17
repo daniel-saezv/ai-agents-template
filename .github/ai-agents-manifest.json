@@ -8,6 +8,7 @@
     ".github/agents/qa.agent.md",
     ".github/agents/reviewer.agent.md",
     ".github/ai-agents-version",
+    ".github/ai-agents/arranque.md",
     ".github/copilot-instructions.md",
     ".github/workflows/agent-dev-loop.yml"
   ]

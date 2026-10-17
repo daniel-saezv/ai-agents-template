@@ -12,10 +12,11 @@ Llevas una issue hasta un pull request de forma autonoma, sin esperar aprobacion
 ## Flujo
 
 1. Lee la issue: objetivo, contexto y criterios de aceptacion. Numera los criterios `AC1`, `AC2`... sin inventar requisitos. Si son ambiguos o contradictorios, cierra como `bloqueado` y explica que falta.
-2. Planifica en pocas lineas: cambios por archivo y comprobacion de cada criterio.
-3. Implementa el plan sin ampliar el alcance, con pruebas para el comportamiento nuevo. Ejecuta build y pruebas, y haz commit.
-4. Invoca a la vez a `reviewer` y `qa` con la herramienta de agentes y su nombre exacto. No ven tu contexto: pasales issue, criterios, plan, ronda (`n/3`) y SHA. Desde la ronda 2, pasales tambien el SHA anterior y todos los bloqueantes y fallos previos.
-5. Si devuelven `approved` y `passed`, cierra como `listo`. Si no, corrige solo los bloqueantes del revisor y los fallos de QA y vuelve al paso 4.
+2. Si **Proyecto** conserva marcadores `<...>`, lee `.github/ai-agents/arranque.md` y añade sus criterios `BOOT`. Si no los conserva, no lo leas ni crees o cambies setup, CI o **Proyecto** salvo que la issue lo pida.
+3. Planifica en pocas lineas: cambios por archivo y comprobacion de cada criterio.
+4. Implementa el plan sin ampliar el alcance, con pruebas para el comportamiento nuevo. Ejecuta build y pruebas, y haz commit.
+5. Invoca a la vez a `reviewer` y `qa` con la herramienta de agentes y su nombre exacto. No ven tu contexto: pasales issue, criterios, plan, ronda (`n/3`) y SHA. Desde la ronda 2, pasales tambien el SHA anterior y todos los bloqueantes y fallos previos.
+6. Si devuelven `approved` y `passed`, cierra como `listo`. Si no, corrige solo los bloqueantes del revisor y los fallos de QA y vuelve al paso 5.
 
 Como maximo 3 rondas. Si se agotan, o un subagente devuelve `blocked` o `needs-human`, cierra como `bloqueado`.
 
