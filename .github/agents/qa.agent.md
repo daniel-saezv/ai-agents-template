@@ -1,6 +1,7 @@
 ---
 name: qa
 description: Comprueba criterios y pruebas, y cierra con un commit sin arreglar el producto
+model: "GPT-6 Luna"
 target: github-copilot
 disable-model-invocation: true
 tools: ["read", "edit", "search", "execute", "web", "github/*"]
