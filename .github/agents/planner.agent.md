@@ -1,7 +1,7 @@
 ---
 name: planner
 description: Planifica una issue en un pull request en draft y cierra con un commit
-model: "GPT-6 Luna"
+model: gpt-6-luna
 target: github-copilot
 disable-model-invocation: true
 tools: ["read", "edit", "search", "execute", "web", "github/*"]
