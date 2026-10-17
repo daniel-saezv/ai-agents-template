@@ -1,14 +1,21 @@
 name: Tarea para agentes
 description: Arranca el bucle de Copilot. Sirve desde GitHub Mobile.
 title: "Tarea para agentes"
-labels:
-  - agent-loop
 body:
   - type: markdown
     attributes:
       value: |
-        <!-- agent-loop -->
-        Al crear esta issue, el planificador arranca solo si el repositorio ya tiene el secreto `COPILOT_AGENT_TOKEN`. El bucle no fusiona: tu revisas el pull request al final.
+        Al crear esta issue, el planificador arranca solo si el repositorio ya tiene el secreto `COPILOT_AGENT_TOKEN`. El bucle no fusiona: tu revisas el pull request al final. GitHub no incluye este texto en la issue; el selector siguiente si, y es lo que arranca el workflow.
+  - type: dropdown
+    id: agent-loop
+    attributes:
+      label: Bucle de agentes
+      description: Este valor queda en la issue y arranca el planificador. No lo cambies.
+      options:
+        - agent-loop
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: goal
     attributes:
