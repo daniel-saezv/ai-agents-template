@@ -12,7 +12,7 @@ Este repositorio automatiza un desarrollo por etapas. El orquestador es determin
 
 ## Contrato de cierre
 
-La sesion no comenta en la issue. Escribe `.github/agent-loop-handoff.md` en la rama de trabajo, conserva el bloque `issue`/`nonce` del encargo y termina con un bloque visible. El workflow publica el comentario y borra el archivo:
+La sesion no comenta en la issue y no pide `issue` ni `nonce`. El encargo los trae en texto plano como `Handoff issue:` y `Handoff nonce:`. Escribe `.github/agent-loop-handoff.md` en la rama de trabajo, empieza con un comentario HTML `agent-loop-handoff` que copie esos valores y termina con un bloque visible. El workflow publica el comentario y borra el archivo:
 
 ```agent-handoff
 from: planner
