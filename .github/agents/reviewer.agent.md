@@ -1,7 +1,7 @@
 ---
 name: reviewer
 description: Revisa el pull request y cierra con un commit, sin cambiar el producto
-model: "GPT-6 Luna"
+model: gpt-6-luna
 target: github-copilot
 disable-model-invocation: true
 tools: ["read", "edit", "search", "execute", "web", "github/*"]
