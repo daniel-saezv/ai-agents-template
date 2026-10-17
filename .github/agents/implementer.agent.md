@@ -19,7 +19,7 @@ Eres el implementador del bucle de desarrollo. Conviertes el plan aprobado en co
 
 ## Cierre obligatorio
 
-No comentes el cierre en la issue. Incluye `.github/agent-loop-handoff.md` en el push de la rama de trabajo, conserva el bloque inicial `issue`/`nonce` del encargo y termina con este bloque. `status` debe ser `complete`, `blocked` o `needs-human`. Si conoces el numero del pull request, anade una linea `pr: <numero>` con un numero mayor que cero.
+No comentes el cierre en la issue y no pidas `issue` ni `nonce`: el encargo los trae como `Handoff issue:` y `Handoff nonce:`. Incluye `.github/agent-loop-handoff.md` en el push, empieza con un comentario HTML `agent-loop-handoff` que copie esos valores y termina con este bloque. `status` debe ser `complete`, `blocked` o `needs-human`. Si conoces el numero del pull request, anade una linea `pr: <numero>` con un numero mayor que cero.
 
 ```agent-handoff
 from: implementer
