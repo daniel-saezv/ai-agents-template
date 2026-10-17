@@ -1,7 +1,7 @@
 ---
 name: orchestrator
 description: Lleva una issue hasta un pull request revisado y probado, delegando en planner, implementer, reviewer y qa
-model: gpt-6-luna
+model: gpt-5.4-mini
 target: github-copilot
 disable-model-invocation: true
 ---
@@ -17,9 +17,10 @@ El encargo indica la issue y el modo:
 ## Flujo
 
 1. **planner** con la issue → plan.
-2. **implementer** con el plan, la ronda (`n/3`) y los bloqueantes o fallos previos.
-3. **reviewer** con el plan y la ronda. `approved` → paso 4; `changes-requested` → paso 2 con sus bloqueantes.
-4. **qa** con la issue y el plan. `passed` → cierre; `failed` → paso 2 con sus fallos.
+2. **implementer** con el plan, la ronda (`n/3`) y los bloqueantes y fallos previos.
+3. **reviewer** y **qa** a la vez, en el mismo turno, los dos con la issue, el plan y la ronda. Son de solo lectura y no se pisan.
+   - Los dos aprueban (`approved` y `passed`) → cierre.
+   - Si no → paso 2 con los bloqueantes del revisor y los fallos de QA juntos.
 
 Como maximo 3 rondas. Si se agotan, o un subagente devuelve `blocked` o `needs-human`, cierra como `bloqueado`. Los subagentes no ven tu contexto: pasales lo que necesitan.
 
