@@ -23,6 +23,14 @@ body:
     validations:
       required: false
   - type: textarea
+    id: stack
+    attributes:
+      label: Stack o restricciones tecnicas
+      description: Opcional. En un repositorio sin configurar, el agente usa este stack; si lo dejas vacio, lo elige y lo justifica.
+      placeholder: Astro estatico con pnpm y Playwright.
+    validations:
+      required: false
+  - type: textarea
     id: acceptance
     attributes:
       label: Criterios de aceptacion

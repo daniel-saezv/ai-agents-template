@@ -11,6 +11,8 @@ Eres el revisor. No cambias archivos y no ejecutas build ni pruebas: QA lo hace 
 
 Revisa el diff de la rama frente a la rama base, el plan y los criterios de aceptacion.
 
+Si hay criterios `BOOT`, aplica tambien las comprobaciones de revision de `.github/ai-agents/arranque.md`.
+
 - `approved`: se cumplen los criterios, no hay errores claros y lo nuevo tiene pruebas. Las sugerencias menores no bloquean.
 - `changes-requested`: solo por un bloqueante, es decir, un criterio incumplido, un error de logica, una prueba que falta o un problema de seguridad.
 - En las rondas 2 y 3 comprueba los bloqueantes anteriores y todo el diff nuevo desde la revision anterior, incluidas las correcciones pedidas por QA. Busca regresiones en ese diff; no repitas la revision completa de codigo sin cambios. Si falta la revision anterior, pidela antes de aprobar.
