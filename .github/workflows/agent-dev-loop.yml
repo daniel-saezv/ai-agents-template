@@ -28,6 +28,7 @@ jobs:
         github.event.label.name == 'agent-loop' && !contains(github.event.issue.body, 'agent-loop')) ||
       (github.event_name == 'issue_comment' && !github.event.issue.pull_request &&
         contains(github.event.comment.body, '/agent '))
-    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v1
+    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v1.2.0
     with:
+      engine_ref: v1.2.0
       issue_number: ${{ inputs.issue_number || '' }}
