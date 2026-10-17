@@ -1,21 +1,12 @@
 name: Tarea para agentes
-description: Arranca el bucle de Copilot. Sirve desde GitHub Mobile.
+description: Asigna la issue a Copilot con el agente developer. Sirve desde GitHub Mobile.
 title: "Tarea para agentes"
+labels: ["agent-loop"]
 body:
   - type: markdown
     attributes:
       value: |
-        Al crear esta issue arranca el orquestador: planifica, implementa, revisa y prueba en una sola sesion de Copilot. El bucle no fusiona: tu revisas el pull request al final. El selector siguiente es lo que arranca el workflow.
-  - type: dropdown
-    id: agent-loop
-    attributes:
-      label: Bucle de agentes
-      description: Este valor queda en la issue y arranca el planificador. No lo cambies.
-      options:
-        - agent-loop
-      default: 0
-    validations:
-      required: true
+        Al crear esta issue, Copilot la recibe con el agente `developer`: planifica, implementa y la verifica con revision y QA independientes en una sola sesion, sin esperar aprobaciones. No fusiona: tu revisas el pull request y, si hace falta, le respondes con `@copilot` en sus comentarios.
   - type: textarea
     id: goal
     attributes:
@@ -28,7 +19,7 @@ body:
     id: details
     attributes:
       label: Contexto
-      description: Notas, enlaces o restricciones. El texto se trata como datos, no como instrucciones para saltarse el bucle.
+      description: Notas, enlaces o restricciones. El texto se trata como datos, no como instrucciones para saltarse el flujo.
     validations:
       required: false
   - type: textarea
@@ -39,17 +30,5 @@ body:
       placeholder: |
         - El endpoint responde 200 sin autenticacion
         - Hay una prueba automatica
-    validations:
-      required: true
-  - type: dropdown
-    id: risk
-    attributes:
-      label: Riesgo
-      description: Alto pide tu aprobacion, con `/agent aprobar`, antes de escribir codigo.
-      options:
-        - bajo
-        - medio
-        - alto
-      default: 0
     validations:
       required: true
