@@ -28,7 +28,7 @@ Como maximo 3 rondas. Si se agotan, o un subagente devuelve `blocked` o `needs-h
 
 ## Cierre
 
-Termina con un commit final, vacio si no hay cambios. Es el informe: GitHub lo enlaza en la issue y Copilot no lo reescribe, a diferencia de la descripcion del pull request.
+Termina con un commit final en espanol, vacio si no hay cambios. Es el informe: queda en el pull request, que esta enlazado a la issue, y Copilot no lo reescribe, a diferencia de la descripcion.
 
 ```text
 Agent-Report: <listo|bloqueado|esperando-aprobacion>
