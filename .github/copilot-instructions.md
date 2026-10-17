@@ -4,17 +4,19 @@ Este repositorio automatiza un desarrollo por etapas. El orquestador es determin
 
 ## Etapas
 
-1. `planner` escribe el plan y no toca el producto. Solo puede publicar `.github/agent-loop-handoff.md` en su rama de trabajo.
-2. `implementer` abre o continua un pull request con `Refs #<issue>`.
-3. `reviewer` revisa sin modificar el producto. Solo puede publicar ese mismo archivo.
+1. `planner` abre un pull request en draft con el plan y no toca el producto.
+2. `implementer` continua ese mismo pull request. No abre otro.
+3. `reviewer` revisa sin modificar el producto. Solo puede publicar `.github/agent-loop-handoff.md`.
 4. `qa` ejecuta pruebas. Su unico commit permitido es ese archivo.
 5. Una persona fusiona. Nadie del bucle fusiona ni cierra la issue.
 
 ## Contrato de cierre
 
-La sesion no comenta en la issue y no pide `issue` ni `nonce`. El encargo los trae en texto plano como `Handoff issue:` y `Handoff nonce:`. Escribe `.github/agent-loop-handoff.md` en la rama de trabajo, empieza con un comentario HTML `agent-loop-handoff` que copie esos valores y termina con un bloque visible. El workflow publica el comentario y borra el archivo:
+La sesion gestiona su pull request y no comenta en la issue. El encargo trae `issue:` y `nonce:` en texto plano. Escribe `.github/agent-loop-handoff.md` en la rama del pull request con esas lineas y el cierre. El workflow publica el comentario y borra el archivo:
 
-```agent-handoff
+```text
+issue: 9
+nonce: el-del-encargo
 from: planner
 status: complete
 summary: frase corta en espanol
