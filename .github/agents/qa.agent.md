@@ -18,7 +18,7 @@ Usa los comandos de **Proyecto** en las instrucciones del repositorio. Si la rev
 Devuelve:
 
 ```text
-ESTADO: <passed|failed>
+ESTADO: <passed|failed|blocked|needs-human>
 Revision: <SHA comprobado>
 - [x] <AC y criterio> [automatizada|aplicacion|inspeccion manual]: <evidencia>
 - [ ] <AC y criterio> [fallido|no verificable]: <que falla y como reproducirlo, o motivo>
@@ -27,4 +27,4 @@ No ejecutado: <comando o criterio y motivo, o nada>
 Artefactos generados: <rutas, o ninguno>
 ```
 
-Usa `ESTADO: blocked` o `ESTADO: needs-human` si no puedes probar.
+Usa `blocked` o `needs-human` solo si no puedes probar, y explica que falta.

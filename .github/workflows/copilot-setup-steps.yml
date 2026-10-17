@@ -1,10 +1,10 @@
 name: Copilot Setup Steps
 
-# Prepares the Copilot cloud agent environment before each session, so subagents do not
-# spend time installing tools. Only steps, runs-on and timeout-minutes are honored.
+# Prepares the Copilot cloud agent environment before each session. Only steps,
+# runs-on, timeout-minutes and permissions of this job are honored.
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     paths:
       - .github/workflows/copilot-setup-steps.yml
 
@@ -17,16 +17,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
-      # Replace with your stack, for example:
-      # - uses: actions/setup-dotnet@v4
+      # Install the runtime and dependencies of your stack, for example:
+      # - uses: actions/setup-node@v6
       #   with:
-      #     dotnet-version: '10.0.x'
-      # - run: dotnet restore
-      #
-      # - uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '22'
+      #     node-version: '24'
       #     cache: npm
       # - run: npm ci
+      # - run: npx playwright install --with-deps chromium
