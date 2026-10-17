@@ -9,6 +9,7 @@ Usa el stack que indique la issue; si no lo indica, elige uno y justificalo en e
 - `BOOT3`: un workflow de CI en `pull_request` que ejecuta los mismos comandos de build y pruebas de **Proyecto**.
 - `BOOT4`: `.gitignore` adecuado al stack y lockfile versionado si el stack lo usa.
 - `BOOT5`: al menos una prueba automatica y, si hay `Arrancar`, una comprobacion contra la aplicacion en marcha.
+- `BOOT6`: README creado o adaptado al proyecto implementado, con proposito, requisitos, instalacion y comandos reales de ejecucion, build y pruebas segun corresponda, coherentes con **Proyecto**. Sustituye la introduccion de la plantilla, conserva la documentacion propia existente y enlaza la documentacion de AI-Agents sin duplicarla.
 
 El setup solo se aplica a las sesiones desde la rama por defecto: en la sesion de arranque, instala lo necesario durante la propia sesion. Los workflows no contienen secretos ni permisos mayores de los necesarios.
 
