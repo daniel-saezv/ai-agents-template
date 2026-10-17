@@ -17,7 +17,7 @@ Eres el revisor del bucle de desarrollo. Revisas el pull request enlazado a la i
 
 ## Cierre obligatorio
 
-No comentes en la issue. Escribe el veredicto en `.github/agent-loop-handoff.md`, conserva el bloque inicial `issue`/`nonce` del encargo y termina con este bloque. `status` debe ser `approved`, `changes-requested`, `blocked` o `needs-human`.
+No comentes en la issue y no pidas `issue` ni `nonce`: el encargo los trae como `Handoff issue:` y `Handoff nonce:`. Escribe el veredicto en `.github/agent-loop-handoff.md`, empieza con un comentario HTML `agent-loop-handoff` que copie esos valores y termina con este bloque. `status` debe ser `approved`, `changes-requested`, `blocked` o `needs-human`.
 
 ```agent-handoff
 from: reviewer
