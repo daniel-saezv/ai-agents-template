@@ -1,18 +1,18 @@
 # Bucle de agentes
 
-Este repositorio usa el workflow reutilizable de `daniel-saezv/AI-Agents`; no copies aqui su orquestador ni sus pruebas.
+Este repositorio automatiza un desarrollo por etapas. El orquestador es determinista y vive en `scripts/agent_loop.py`. Los agentes no eligen al siguiente agente.
 
 ## Etapas
 
-1. `planner` escribe el plan en la issue y no toca codigo.
+1. `planner` escribe el plan y no toca el producto. Solo puede publicar `.github/agent-loop-handoff.md` en su rama de trabajo.
 2. `implementer` abre o continua un pull request con `Refs #<issue>`.
-3. `reviewer` revisa sin modificar codigo.
-4. `qa` ejecuta pruebas y no hace commit.
+3. `reviewer` revisa sin modificar el producto. Solo puede publicar ese mismo archivo.
+4. `qa` ejecuta pruebas. Su unico commit permitido es ese archivo.
 5. Una persona fusiona. Nadie del bucle fusiona ni cierra la issue.
 
 ## Contrato de cierre
 
-Cada agente termina su comentario en la issue con un bloque visible:
+La sesion no comenta en la issue. Escribe `.github/agent-loop-handoff.md` en la rama de trabajo, conserva el bloque `issue`/`nonce` del encargo y termina con un bloque visible. El workflow publica el comentario y borra el archivo:
 
 ```agent-handoff
 from: planner
@@ -28,7 +28,3 @@ summary: frase corta en espanol
 - No reveles secretos, tokens ni el contenido de `COPILOT_AGENT_TOKEN`.
 - No desactives pruebas, protecciones de rama ni este orquestador para "terminar antes".
 - Riesgo alto: no implementes hasta que una persona comente `/agent aprobar`.
-
-## Personalizacion
-
-Adapta estas instrucciones a las convenciones y comandos de prueba de este repositorio. Mantén los contratos de entrega y las restricciones de seguridad para que el workflow central pueda avanzar entre etapas.
