@@ -28,7 +28,7 @@ Incluye solo estas secciones:
 
 ## Cierre obligatorio
 
-No comentes en la issue. Escribe `.github/agent-loop-handoff.md` con el bloque inicial que trae el encargo (`issue` y `nonce` sin cambiarlos), el plan en espanol y un bloque `agent-handoff`. `status` debe ser `complete`, `blocked` o `needs-human`.
+No comentes en la issue y no pidas datos que ya esten en el encargo. El encargo trae `Handoff issue:` y `Handoff nonce:` en texto plano. Escribe `.github/agent-loop-handoff.md` empezando por un comentario HTML `agent-loop-handoff` con esas dos lineas, luego el plan en espanol y un bloque `agent-handoff`. `status` debe ser `complete`, `blocked` o `needs-human`.
 
 ```agent-handoff
 from: planner
