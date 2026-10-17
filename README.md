@@ -9,6 +9,6 @@ AI-Agents sincroniza esta plantilla en cada release; no la edites aqui. El uso, 
 1. Crea el repositorio con **Use this template**. La copia no queda conectada: las actualizaciones llegan despues por pull request desde AI-Agents.
 2. Elige como configurar **Proyecto** en `.github/copilot-instructions.md`:
    - Completalo con tus comandos de build, pruebas y, opcionalmente, `Arrancar`, y prepara `.github/workflows/copilot-setup-steps.yml`.
-   - O deja los marcadores `<...>`: la primera issue configura **Proyecto**, el setup de Copilot y CI segun el stack que indiques.
+   - O deja los marcadores `<...>`: la primera issue configura **Proyecto**, el setup de Copilot y CI segun el stack que indiques, y adapta el README al proyecto con requisitos y comandos de uso.
 3. Revisa los requisitos de [Instalacion](https://github.com/daniel-saezv/AI-Agents#instalacion): Copilot cloud agent, Actions, acceso a los workflows reutilizables y modelos de los perfiles.
 4. Crea una issue con **Tarea para agentes**.
