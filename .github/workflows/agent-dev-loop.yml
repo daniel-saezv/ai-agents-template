@@ -8,8 +8,6 @@ on:
   pull_request:
     types: [opened]
   push:
-    paths:
-      - .github/agent-loop-handoff.md
   workflow_dispatch:
     inputs:
       issue_number:
@@ -18,22 +16,14 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
   issues: write
   pull-requests: read
   id-token: write
 
 jobs:
   orchestrate:
-    if: github.event_name != 'push'
     uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@main
     with:
       issue_number: ${{ inputs.issue_number || '' }}
-  relay:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publish the agent handoff
-        uses: daniel-saezv/AI-Agents@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      push_event: ${{ github.event_name == 'push' && toJson(github.event) || '' }}
