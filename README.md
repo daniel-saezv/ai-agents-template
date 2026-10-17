@@ -10,7 +10,7 @@ El motor y sus pruebas permanecen en el repositorio central: no copies `scripts/
 2. Configura el acceso del repositorio central privado `AI-Agents` para permitir que este repositorio consuma sus workflows reutilizables (**Settings → Actions → General → Access** en `AI-Agents`).
 3. Configura una sola vez en el workflow central `AI-Agents` los identificadores no secretos del proveedor OIDC, service account y proyecto de Google Cloud. El workflow central obtiene `COPILOT_AGENT_TOKEN` desde Secret Manager; no se requiere una clave de Google ni un secreto PAT en cada consumidor.
 4. Activa Copilot cloud agent para el repositorio si tu plan lo requiere.
-5. En **Settings ? Copilot ? Cloud agent** desactiva **Require approval for workflow runs**. Si no, cada cierre de etapa deja un run `action_required` y el bucle espera a que pulses *Approve and run workflows* o comentes `/agent continuar`. Opcional: desactiva **Copilot code review** en *Validation tools*, porque el agente `reviewer` ya revisa.
+5. Opcional: en **Settings ? Copilot ? Cloud agent ? Validation tools** desactiva *Copilot code review*, porque el subagente `reviewer` ya revisa.
 6. Completa la seccion **Proyecto** de `.github/copilot-instructions.md` con los comandos de build y pruebas. QA y el implementador la usan.
 
 El workflow incluido concede `id-token: write`, necesario para que GitHub emita la identidad OIDC de corta duración. Los repositorios existentes deben actualizar su workflow invocador con ese permiso. El workflow central no acepta PATs pasados por los repositorios consumidores: obtiene el token únicamente desde Secret Manager mediante OIDC.
@@ -24,11 +24,11 @@ En GitHub, selecciona **Use this template → Create a new repository**. La plan
 El nuevo repositorio incluye:
 
 - `.github/workflows/agent-dev-loop.yml`, que llama al workflow reutilizable central.
-- `.github/agents/`, con los perfiles base `planner`, `implementer`, `reviewer` y `qa`.
+- `.github/agents/`, con el agente `orchestrator` y sus subagentes `planner`, `implementer`, `reviewer` y `qa`. Ajusta el `model` de cada uno si quieres.
 - `.github/ISSUE_TEMPLATE/agent-task.yml` y `.github/PULL_REQUEST_TEMPLATE.md`.
 - `.github/copilot-instructions.md`, para adaptar al proyecto.
 
-El workflow arranca con una issue de tipo **Tarea para agentes**, con la etiqueta `agent-loop` o con `/agent empezar`. Despues avanza con el commit `Agent-Handoff` que cierra cada etapa en ramas `copilot/**`. El job filtra los eventos irrelevantes, asi que no hay ejecuciones duplicadas. Tambien se puede iniciar desde Actions indicando el numero de issue. Los detalles del protocolo estan en el README de [AI-Agents](https://github.com/daniel-saezv/AI-Agents).
+El workflow arranca una unica sesion de Copilot con el agente `orchestrator` al crear una issue **Tarea para agentes**, al poner la etiqueta `agent-loop` o al comentar `/agent empezar`. El orquestador planifica, implementa, revisa y prueba con subagentes y deja un commit final `Agent-Report` con el informe. Con riesgo alto solo planifica y espera a `/agent aprobar`; `/agent reintentar` relanza sobre la misma rama. Los detalles estan en el README de [AI-Agents](https://github.com/daniel-saezv/AI-Agents).
 
 ## Limites
 

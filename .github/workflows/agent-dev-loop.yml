@@ -5,23 +5,20 @@ on:
     types: [opened, labeled]
   issue_comment:
     types: [created]
-  push:
-    branches: ['copilot/**']
   workflow_dispatch:
     inputs:
       issue_number:
-        description: Issue que debe arrancar o continuar
+        description: Issue que debe arrancar
         required: true
         type: string
 
 permissions:
   contents: read
   issues: write
-  pull-requests: read
   id-token: write
 
 jobs:
-  orchestrate:
+  start:
     # Filter here: irrelevant events are skipped and never fetch the Copilot token.
     if: >-
       github.event_name == 'workflow_dispatch' ||
@@ -30,10 +27,7 @@ jobs:
       (github.event_name == 'issues' && github.event.action == 'labeled' &&
         github.event.label.name == 'agent-loop' && !contains(github.event.issue.body, 'agent-loop')) ||
       (github.event_name == 'issue_comment' && !github.event.issue.pull_request &&
-        contains(github.event.comment.body, '/agent ')) ||
-      (github.event_name == 'push' &&
-        contains(join(github.event.commits.*.message, ' '), 'Agent-Handoff:'))
+        contains(github.event.comment.body, '/agent '))
     uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@main
     with:
       issue_number: ${{ inputs.issue_number || '' }}
-      push_event: ${{ github.event_name == 'push' && toJson(github.event) || '' }}
