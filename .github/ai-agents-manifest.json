@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "managed": [
+    ".github/ISSUE_TEMPLATE/agent-task.yml",
+    ".github/ISSUE_TEMPLATE/config.yml",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/agents/implementer.agent.md",
+    ".github/agents/orchestrator.agent.md",
+    ".github/agents/planner.agent.md",
+    ".github/agents/qa.agent.md",
+    ".github/agents/reviewer.agent.md",
+    ".github/ai-agents-version",
+    ".github/copilot-instructions.md",
+    ".github/workflows/agent-dev-loop.yml"
+  ]
+}
