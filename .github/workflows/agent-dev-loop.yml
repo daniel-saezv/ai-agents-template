@@ -21,6 +21,6 @@ jobs:
     # Filter here: irrelevant events are skipped and never fetch the Copilot token.
     if: >-
       github.event_name == 'workflow_dispatch' || github.event.label.name == 'agent-loop'
-    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.2.1
+    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.3.1
     with:
       issue_number: ${{ inputs.issue_number || github.event.issue.number }}
