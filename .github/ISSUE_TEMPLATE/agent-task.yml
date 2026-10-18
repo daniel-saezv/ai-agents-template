@@ -34,7 +34,7 @@ body:
     id: acceptance
     attributes:
       label: Criterios de aceptacion
-      description: Lista comprobable. QA la usara tal cual.
+      description: Lista comprobable. QA la usara tal cual. Una issue acotada, de pocos criterios, cuesta mucho menos que un MVP entero: el contexto crece con cada paso y se reenvia en cada llamada.
       placeholder: |
         - El endpoint responde 200 sin autenticacion
         - Hay una prueba automatica

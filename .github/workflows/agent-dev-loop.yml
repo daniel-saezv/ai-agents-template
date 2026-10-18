@@ -10,6 +10,12 @@ on:
         description: Issue que debe asignarse a Copilot
         required: true
         type: string
+      custom_agent:
+        description: developer, o developer-lite para el modo de bajo coste
+        required: true
+        type: choice
+        options: [developer, developer-lite]
+        default: developer
 
 permissions:
   contents: read
@@ -20,7 +26,9 @@ jobs:
   start:
     # Filter here: irrelevant events are skipped and never fetch the Copilot token.
     if: >-
-      github.event_name == 'workflow_dispatch' || github.event.label.name == 'agent-loop'
-    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.3.1
+      github.event_name == 'workflow_dispatch' || github.event.label.name == 'agent-loop' ||
+      github.event.label.name == 'agent-loop-lite'
+    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.5.0
     with:
       issue_number: ${{ inputs.issue_number || github.event.issue.number }}
+      custom_agent: ${{ inputs.custom_agent || (github.event.label.name == 'agent-loop-lite' && 'developer-lite') || 'developer' }}
