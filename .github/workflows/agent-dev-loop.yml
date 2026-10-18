@@ -28,7 +28,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' || github.event.label.name == 'agent-loop' ||
       github.event.label.name == 'agent-loop-lite'
-    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.5.0
+    uses: daniel-saezv/AI-Agents/.github/workflows/agent-dev-loop.yml@v2.5.1
     with:
       issue_number: ${{ inputs.issue_number || github.event.issue.number }}
       custom_agent: ${{ inputs.custom_agent || (github.event.label.name == 'agent-loop-lite' && 'developer-lite') || 'developer' }}
