@@ -1,11 +1,9 @@
-## Resumen
+## Qué
 
-Refs #
+## Por qué
 
-## Comprobacion
+## Cómo se ha probado
 
-- [ ] El cambio se limita a la issue
-- [ ] Las pruebas relevantes se han ejecutado
-- [ ] No hay secretos en el diff
+## Evidencias
 
-El bucle de agentes no fusiona este pull request. Hace falta una persona.
+Si hay cambios visuales, enlaza capturas o una grabación.

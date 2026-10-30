@@ -4,9 +4,6 @@ updates:
     directory: /
     schedule:
       interval: weekly
-    ignore:
-      # AI-Agents pins its reusable workflow through its own sync pull requests.
-      - dependency-name: daniel-saezv/AI-Agents*
     groups:
       actions:
         patterns: ["*"]
