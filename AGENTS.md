@@ -23,6 +23,10 @@ Comandos reales, comprobados en este repositorio:
 
 Prácticas y optimizaciones de este stack.
 
+- Sin comentarios en el código.
+- Sin ficheros `.md` largos de planes o decisiones; excepción: README de una capa concreta del repositorio.
+- Tests: antes de añadir uno, comprobar si ya lo cubre un test existente (ampliarlo); eliminar los que dejen de aplicar.
+
 ## CI/CD
 
 No hay workflow de CI en la plantilla: uno genérico fallaría sin stack. Cuando el stack exista, crea GitHub Actions que ejecute los comandos de arriba en cada pull request. Anota aquí los workflows, los checks obligatorios y los que convendría añadir.
