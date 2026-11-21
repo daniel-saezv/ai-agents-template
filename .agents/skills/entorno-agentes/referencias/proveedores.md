@@ -22,6 +22,7 @@ Los envoltorios solo ejecutan `bash scripts/setup`.
 - No añadas `$schema`: el esquema vigente rechaza propiedades no declaradas.
 - No pongas Dockerfile, `start` ni `terminals` salvo que el stack lo necesite. `install` prepara disco; los procesos vivos van en `start` o `terminals`.
 - Un entorno guardado en el panel solo lee este archivo si su ubicación de environment.json apunta a él. En un arranque de un solo repo sin entorno previo, un `.cursor/environment.json` válido en el repo queda registrado.
+- `install` solo corre al crear un Build, y el Build clona la rama por defecto ([Cloud Agent Builds](https://cursor.com/docs/cloud-agent/builds)). Hasta que hay un Build sano, los agentes arrancan con la imagen por defecto sin `install`. El cambio de este archivo solo surte efecto tras el merge a la rama por defecto y un Build en estado SUCCEEDED (Builds > Trigger build en el entorno; lo hace alguien con Write en el repo).
 
 ## GitHub Copilot cloud agent
 

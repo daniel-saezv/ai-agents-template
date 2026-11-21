@@ -19,7 +19,7 @@ Los detalles de cada proveedor (rutas, campos, triggers) están en [referencias/
    - Cualquier otro archivo de entorno de un proveedor documentado en la referencia.
    Si el repo nació de esta plantilla y aún no hay marcas, crea los envoltorios de la plantilla (los dos de la referencia). No inventes proveedores que el proyecto no usa.
 4. **Crea o actualiza envoltorios.** Cada envoltorio solo invoca `bash scripts/setup`. Cero lógica de instalación propia. Sigue la referencia del proveedor: ruta, nombre de job, campos y triggers. Si el proyecto usa un proveedor de la referencia sin envoltorio, créalo.
-5. **Comprueba.** Ejecuta `bash scripts/setup` dos veces seguidas y confirma salida 0 las dos. Abre cada envoltorio y verifica que llama al script y cumple la referencia. No des por bueno un campo de memoria: contrasta con [referencias/proveedores.md](referencias/proveedores.md).
+5. **Comprueba.** Ejecuta `bash scripts/setup` dos veces seguidas y confirma salida 0 las dos. Abre cada envoltorio y verifica que llama al script y cumple la referencia. No des por bueno un campo de memoria: contrasta con [referencias/proveedores.md](referencias/proveedores.md). En Cursor, la prueba no es que el archivo exista: es ver que `environment-info` o el log del Build muestran `install` ejecutado.
 
 ## Qué no hacer
 
