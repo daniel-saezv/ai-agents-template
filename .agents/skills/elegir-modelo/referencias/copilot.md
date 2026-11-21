@@ -1,16 +1,24 @@
 # Copilot: elegir y comprobar el modelo
 
-Hechos para consultar. Catálogo oficial verificado el 2026-11-21. Ids y fallos de resolución, comprobados el mismo día en el log `Running Copilot cloud agent`. Si un campo no está aquí, no lo inventes: abre el enlace.
+Hechos para consultar. Si un campo no está aquí, no lo inventes: abre el enlace. No copies ids de modelo a esta skill: el catálogo y los descuentos cambian.
 
 ## Documentación
 
-- Catálogo vigente: [Changing the AI model for GitHub Copilot cloud agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/changing-the-ai-model)
+- Modelos soportados por el cloud agent: [Changing the AI model for GitHub Copilot cloud agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/changing-the-ai-model)
+- Precios y uso actuales (créditos de IA): [Models and pricing for GitHub Copilot](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing)
+- Premium requests (facturación antigua por peticiones): [Requests in GitHub Copilot (legacy)](https://docs.github.com/en/copilot/reference/copilot-billing/request-based-billing-legacy/copilot-requests)
+- Multiplicadores de esa facturación antigua: [Model multipliers for annual plans on request-based billing (legacy)](https://docs.github.com/en/copilot/reference/copilot-billing/request-based-billing-legacy/model-multipliers-for-annual-plans)
 - Cómo pasar el modelo al asignar una issue: [Using Copilot cloud agent via the API](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/use-cloud-agent-via-the-api)
-- Esquema de tareas (campo `model` en cada sesión): [REST API endpoints for agent tasks](https://docs.github.com/en/rest/agent-tasks/agent-tasks?apiVersion=2026-03-10) (`GET /agents/tasks/{task_id}`, versión `2026-03-10`)
+
+## Cómo consultar el catálogo
+
+Antes de lanzar, abre [Changing the AI model](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/changing-the-ai-model). Esa página es la lista vigente del cloud agent. La lista «Currently supported values» de las tareas REST puede ir desfasada.
+
+Para coste y descuentos, abre [Models and pricing](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing). Si el plan sigue en facturación por peticiones premium, usa [Requests in GitHub Copilot](https://docs.github.com/en/copilot/reference/copilot-billing/request-based-billing-legacy/copilot-requests) y [Model multipliers](https://docs.github.com/en/copilot/reference/copilot-billing/request-based-billing-legacy/model-multipliers-for-annual-plans). No copies esas tablas aquí.
 
 ## Cómo elegir
 
-En los puntos de entrada con selector (issue en GitHub.com, comentario `@copilot` en una PR, pestaña o panel de agentes, GitHub Mobile, Raycast, Slack o Teams), elige el modelo al arrancar. Si el modelo admite razonamiento configurable, la UI muestra un segundo menú. Donde no hay selector, Copilot usa Auto.
+En los puntos de entrada con selector, elige el modelo al arrancar. Si el modelo admite razonamiento configurable, la UI muestra un segundo menú. Donde no hay selector, Copilot usa Auto.
 
 Por API, pasa el modelo de forma explícita. Sin `model`, Copilot usa Auto.
 
@@ -20,24 +28,12 @@ Por API, pasa el modelo de forma explícita. Sin `model`, Copilot usa Auto.
 
 **REST (tareas):** `POST /agents/repos/{owner}/{repo}/tasks` con `model`. Si omites `model`, Auto.
 
-Los valores son identificadores en minúsculas. La lista «Currently supported values» de las tareas REST puede ir desfasada respecto al catálogo de «Changing the AI model». Antes de elegir, abre esa página.
-
-Ids resueltos el 2026-11-21 en `[cca-engine] Model resolution: … → resolved="<id>"`:
-
-- `claude-haiku-4.5`
-- `grok-4.7`
-- `gpt-6.2-sol`
-- `gpt-6.1-sol`
-
-Sin nivel de razonamiento se usa medium. Los niveles altos gastan más créditos (la doc oficial lo confirma).
+Los valores de `model` son identificadores en minúsculas. Tómalos del catálogo de «Changing the AI model», no de memoria.
 
 ## Cómo comprobar
 
 Un modelo inválido o no disponible no falla el HTTP de creación de la issue: responde **201**. Copilot comenta que el modelo no está disponible y no abre sesión ni PR. Revisa siempre los comentarios de la issue tras asignar.
 
-El modelo realmente usado:
-
-1. Log del workflow **Running Copilot cloud agent** (`GET /repos/{owner}/{repo}/actions/runs/{id}/logs`). Línea `[cca-engine] Model resolution: … → resolved="<id>"`.
-2. Campo `model` de las sesiones en `GET /agents/tasks/{task_id}` (API `2026-03-10`), con permiso de repositorio **Agent tasks**. No figura en la PR.
+El modelo realmente usado está en el log del workflow **Running Copilot cloud agent**. Línea `[cca-engine] Model resolution: … → resolved="<id>"`.
 
 No des por bueno el id pedido hasta ver comentarios y log.
