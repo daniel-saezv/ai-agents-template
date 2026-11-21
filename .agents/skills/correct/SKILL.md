@@ -1,31 +1,32 @@
 ---
 name: correct
-description: Encuentra errores que los agentes repiten en este repo y haz cada uno imposible. Prioriza arquitectura, luego tipos, lint con mensaje que nombre el arreglo, tests y documentación al final. Demuestra que cada chequeo falla con un error real pasado.
+description: "Find the mistakes agents keep repeating in this repo and make each one impossible. Try architecture first, then types, then a lint whose error names the fix, then a test, and write docs last. Prove each check fails on a real past mistake. Repeat this each time the operator corrects you. Use for /correct."
+disable-model-invocation: true
 ---
 
 # Correct
 
-La persona que opera el repo corrige a los agentes una y otra vez por los mismos fallos. Cambia el repo para que el siguiente agente no pueda repetirlos.
+The operator keeps correcting agents in this repo for the same mistakes. Change the repo so the next agent can't make them.
 
-Asume que cada contribuidor es un agente que solo ve los archivos que abrió, copia el ejemplo más cercano y toma el camino más corto que compila. Diseña el repo para que un cambio que parece correcto desde un archivo lo sea para todo el proyecto.
+Assume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Design the repo so a change that looks right from one file is right for the whole repo.
 
-## Encuentra las clases de error
+## Find the mistake classes
 
-Lee commits recientes, reversiones, comentarios de revisión, archivos de instrucciones para agentes y comentarios que explican workarounds. Agrupa en clases. Una clase cuenta cuando ha pasado dos veces.
+First, read recent commits, reverts, review comments, agent instruction files, and comments that explain workarounds. Group the mistakes into classes. A class counts once it has happened twice.
 
-## Corrige cada clase al nivel más alto que funcione
+## Fix each class at the highest level that works
 
-1. **Elimínala con arquitectura.** Un dueño por pieza de estado y una forma soportada por tarea. Oculta internos para que el import incorrecto falle. Sustituye listas sincronizadas a mano por una fuente de verdad. Borra vías viejas y código muerto que un agente copiaría.
-2. **Fuerzala con tipos para que el mal estado no se pueda escribir.** Si el mal código aún compila, añade lint o CI cuyo error nombre el archivo, tipo o función correcta. Si el patrón ya es común, falla solo cuando un cambio añade más.
-3. **Prueba el comportamiento.** Arregla o borra tests que siguen pasando cuando se rompe lo que comprueban, o que fallan solo por cambiar internos.
-4. **Documenta o reglas para agentes al final, solo para decisiones de criterio.** Nada falla si un agente las ignora.
+1. **Eliminate it with architecture.** Give each piece of state one owner and each task one supported way. Hide internals so the wrong import fails. Replace hand-synced lists with one source of truth. Delete old ways and dead code an agent would copy.
+2. **Enforce it with types so the bad state can't be written.** If bad code still compiles, add a lint or CI check whose error names the file, type, or function to use instead. If the pattern is already common, fail only when a change adds more.
+3. **Test the behavior.** Fix or delete any test that still passes when the behavior it checks breaks, or that fails when only the internals change.
+4. **Write docs or agent rules last, only for judgment calls.** Nothing fails when an agent skips them.
 
-## Corrige y demuestra
+## Fix and prove
 
-Arregla las clases más frecuentes ahora, un commit cada una. Demuestra que cada chequeo nuevo falla con un error pasado real. Misma orden en local y en CI. Las excepciones van en la línea ofensora con razón, fecha de caducidad y aprobación humana.
+Then fix the most frequent classes now, one commit each. Prove each new check fails on a real past mistake. Run the same command locally and in CI. Exceptions go on the offending line with a reason, an expiry date, and a human's approval.
 
-## Mantén la tabla de reglas
+## Keep the rule table
 
-Conserva en el archivo de instrucciones para agentes una tabla que empareje cada regla con qué la hace cumplir. Cuando te corrijan, arregla el fallo y añade la regla. Si la regla ya existía y nada la aplica, es repetición: corrige al nivel más alto en el mismo cambio. Quita la regla cuando el fallo ya no pueda ocurrir.
+Last, keep a table in the agent instruction file that pairs each rule with what enforces it. When the operator corrects you, fix the mistake and add the rule. If the rule was already there and nothing enforces it, that's a repeat, so fix it at the highest level in the same change. Drop a rule once its mistake can't happen.
 
-**Respuesta:** cada clase con su evidencia, el nivel elegido y por qué un nivel superior no funcionó.
+**Reply:** each class with its evidence, the level you picked, and why a higher level didn't work.

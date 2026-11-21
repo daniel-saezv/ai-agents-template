@@ -1,6 +1,6 @@
 ---
 name: how
-description: Para «cómo funciona X», recorridos de código antes de cambiar algo y preguntas de ubicación o capas («dónde vive esto», «qué módulo lo posee»). Para motivación usa la skill correct o pregunta explícita de porqué.
+description: Para «cómo funciona X», recorridos de código antes de cambiar algo y preguntas de ubicación o capas («dónde vive esto», «qué módulo lo posee»).
 ---
 
 # Cómo funciona

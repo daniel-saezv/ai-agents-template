@@ -1,49 +1,50 @@
 ---
 name: blast-radius
-description: Antes de publicar un cambio, encuentra qué podría romperse en otro sitio y demuestra el hecho clave de seguridad ejecutando código real. Para «radio de explosión de X», «qué puede romper esto» o diffs pequeños que no convencen.
+description: "Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it's safe because of by running real code instead of writing it up. Use for 'blast radius of X', 'what could this break', or reviewing a small diff you don't trust."
+disable-model-invocation: true
 ---
 
-# Radio de explosión
+# Blast radius
 
-Encuentra qué rompe un cambio en otro lugar, antes de publicarlo. Para «radio de explosión de X», «qué puede romper esto» o un diff pequeño que aún no inspira confianza.
+Find what a change breaks somewhere else, before it ships. Use for "blast radius of X", "what could this break", or reviewing a small diff you don't trust yet.
 
-Complementa `how`: `how` explica qué hace el código; radio de explosión, qué parte en otro sitio.
+Companion to `how` and `why`. `how` tells you what the code does. `why` tells you why it's shaped that way. Blast radius tells you what it breaks somewhere else.
 
-Listar llamadores no basta: una búsqueda en el árbol lo hace en segundos. El trabajo es lo que esa búsqueda no muestra.
+Listing the callers is not the job. The agent can grep those in a second. The job is the breakage grep won't show you.
 
-## No confíes en tu propio informe
+## Don't trust your own writeup
 
-Un informe que suena bien no vale si no es cierto. No entregues solo el texto: localiza el uno o dos hechos de los que depende la seguridad del cambio y demuéstralos ejecutando código.
+A blast-radius writeup that sounds right is worthless. It reads as convincing whether or not it's true. So don't hand back the writeup. Find the one or two facts the whole thing depends on and prove them by running code.
 
-### Qué tan seguro estás
+### How sure are you
 
-Para cada hecho del que depende que el cambio sea seguro, llévalo tan abajo en esta lista como sea barato, y di dónde te detuviste.
+For each fact the change's safety depends on, get it as far down this list as is cheap, and say where it stopped.
 
-1. Lo afirmaste. Por sí solo no vale.
-2. Señalaste la línea. `archivo:línea` real, o el fuente de la biblioteca.
-3. Mostraste que el mal caso no puede ocurrir. Recorriste el fallo paso a paso y no llega.
-4. Lo ejecutaste. Script o test que llama el código real y falla en voz alta si te equivocas.
-5. Lo reprodujiste en la aplicación en marcha.
+1. You said so. Worthless on its own.
+2. You pointed at the line. A real `file:line`, or the library's own source.
+3. You showed the bad case can't happen. You walked the failure step by step and it doesn't reach.
+4. You ran it. A script or test that calls the real code and fails loud if you're wrong.
+5. You reproduced it in the running app.
 
-El paso 4 suele ser un script pequeño que importa la misma biblioteca que usa la app y llama la función que te preocupa.
+Step 4 is usually one small script that imports the same library the app ships and calls the exact function you're worried about.
 
-## Pasos
+## Steps
 
-1. **Lee el cambio.** Diff, símbolos que añade, cambia o borra, y qué hace distinto, incluido lo que el diff no dice. Pull y commits si aplica.
-2. **Encuentra el hecho por el que es seguro.** Muchos cambios que parecen arriesgados lo son por un solo hecho («esta llamada solo descarta entradas de caché ya muertas»). Si se cumple, la mayoría de casos riesgosos caen. Gasta el tiempo aquí, no en una lista larga de quizás.
-3. **Mira donde la búsqueda en árbol para.** Fuente de la biblioteca llamada, versión fijada y parches locales. Cuándo corre: microtareas, desmontaje, formatos en disco, otra lengua leyendo los mismos bytes, feature flags, código tres saltos después.
-4. **Sé honesto con cada riesgo.** Probabilidad real y coste si ocurre. Conserva los confirmados. Lista aparte los que comprobaste y descartaste. Cita `archivo:línea` real; una búsqueda vacía también es respuesta. No inventes llamadores ni APIs.
-5. **Demuestra el hecho clave.** Script o test con código real, ejecútalo y pega la salida.
-6. **Cambios grandes o amplios.** Valora segunda opinión con otro modelo o revisión humana; distintos ojos detectan fallos distintos.
+1. Read the change. The diff, the symbols it adds, changes, and deletes, and what it now does differently, including the part the diff doesn't spell out. Pull the PR and its commits.
+2. Find the one fact it's safe because of. Most changes that look risky are safe because of a single fact, like "this call only drops already-dead cache entries and does nothing else". Find that fact. If it holds, most risky cases are cleared at once. Spend your time here, not on a long list of maybes.
+3. Look where grep stops. Read the source of the library you call, and check its pinned version and any local patch. Work out when things run: microtasks, unmount and teardown, Solid versus React. Follow what a symbol search misses: the JSON an API returns, a DB column, a wire format, another language reading the same bytes, a feature flag, code three hops downstream.
+4. Be honest about each risk. Give it a real chance of happening and a real cost if it does. Keep the risks you confirmed. List the ones you checked and cleared separately. Cite a real `file:line`, a search that finds nothing is still an answer, and never make up a caller or an API.
+5. Prove the one fact. Write a script or test that runs the real code, run it, and paste what happened.
+6. For a big or wide change, run it as an `arena`. Ask more than one model the same question and merge the answers. Different models catch different real bugs.
 
-## Qué entregar
+## What to hand back
 
-- **Qué hace.** Qué cambió, incluida la parte no obvia.
-- **El hecho por el que es seguro.** Enuncíalo, di en qué paso quedó y muestra la prueba. Si no pudiste probarlo, marca «sin probar».
-- **Riesgos.** Cómo rompe, `archivo:línea`, probabilidad e impacto, cómo comprobar. Pega prueba en los que importen.
-- **Descartados.** Qué revisaste y por qué está bien.
-- **Antes de fusionar.** El test o repro más barato que atrapa el fallo real, incluido el script que escribiste.
+- **What it does.** What changed, including the part that isn't obvious.
+- **The one fact it's safe because of.** State it, say which step you got it to, and show the proof. If you couldn't prove it, write unproven.
+- **Risks.** Each names how it breaks, the `file:line`, how likely and how bad, and how to check. Paste the proof for the ones that matter.
+- **Cleared.** What you checked and why it's fine.
+- **Before you merge.** The cheapest test or repro that catches the real bug, including the script you wrote.
 
-Escribe con prosa breve, cita código real y quita lo privado antes de publicar fuera del equipo.
+Write it through `unslop`, cite real code, and strip anything private before it goes anywhere public.
 
-**Respuesta:** el informe anterior, con el hecho de seguridad probado o marcado sin probar.
+**Reply:** the writeup above, with the one safety fact either proven or marked unproven.

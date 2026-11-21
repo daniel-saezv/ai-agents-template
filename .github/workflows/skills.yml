@@ -1,0 +1,38 @@
+name: Skills
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1635cea329693ff5ad64a3b284 # v4.2.2
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd63f88b84a9c # v4.4.2
+        with:
+          node-version: "22.20"
+
+      - name: Restore skills from lock
+        run: >
+          npx skills@1.9.0 experimental_install
+          --frozen-lockfile --force -y
+          -a cursor -a github-copilot -a codex -a gemini-cli -a claude-code
+
+      - name: Working tree matches committed skills
+        run: git diff --exit-code
+
+      - name: Skills match skills-lock.json
+        run: npx skills@1.9.0 check -y
+
+      - name: Validate skill metadata (propias)
+        run: |
+          set -e
+          for skill in .agents/skills/how .agents/skills/pr-lista .agents/skills/setup-proyecto .agents/skills/technical-writing; do
+            npx skills-ref@0.1.5 validate "$skill"
+          done
