@@ -1,34 +1,24 @@
 # AGENTS.md
 
-Esqueleto. En la primera tarea, complétalo con lo que haya en el repositorio. No inventes un stack ni comandos que no hayas ejecutado. No copies aquí las reglas generales de la cuenta: solo lo propio de este proyecto.
+## Reglas transversales
 
-## Proyecto
+1. Demuestra que funciona antes de darlo por hecho: comando real, test o captura.
+2. Arregla la causa raíz, no el síntoma.
+3. Resta antes de sumar: borra código muerto antes de añadir.
+4. Haz el cambio mínimo que resuelve, sin capas ni abstracciones especulativas.
+5. Los tests prueban comportamiento observable, no la implementación.
+6. Amplía un test existente antes de crear otro y borra los que dejen de aplicar.
+7. Sin comentarios en el código: que el nombre y la estructura lo expliquen.
+8. Validación y manejo de errores en los bordes del sistema, no repartidos por todo el código.
+9. Operaciones idempotentes: se pueden repetir sin daño.
+10. Una unidad verificable por commit o PR.
+11. Antes de reportar un número, explícalo y mídelo bien.
+12. Si una corrección se repite, conviértela en estructura (test, lint, tipo) y no en otra instrucción.
+13. Nunca inventes comandos, stack ni datos: solo lo comprobado.
+14. Sin ficheros `.md` largos de planes o decisiones; el porqué va en la PR o en el commit.
+15. Prosa breve y sin relleno en PRs, commits y documentación.
+16. No cambies alcance, diseño ni prioridades por tu cuenta; si algo te bloquea, dilo con exactitud.
 
-Qué es y para qué sirve.
+## Este proyecto
 
-## Stack y estructura
-
-Lenguaje, herramientas y dónde vive el código.
-
-## Comandos
-
-Comandos reales, comprobados en este repositorio:
-
-- Instalación:
-- Build:
-- Tests:
-- Arranque:
-
-## Buenas prácticas
-
-Prácticas y optimizaciones de este stack.
-
-- Sin comentarios en el código.
-- Sin ficheros `.md` largos de planes o decisiones; excepción: README de una capa concreta del repositorio.
-- Tests: antes de añadir uno, comprobar si ya lo cubre un test existente (ampliarlo); eliminar los que dejen de aplicar.
-
-## CI/CD
-
-No hay workflow de CI en la plantilla: uno genérico fallaría sin stack. Cuando el stack exista, crea GitHub Actions que ejecute los comandos de arriba en cada pull request. Anota aquí los workflows, los checks obligatorios y los que convendría añadir.
-
-Dependabot ya vigila `github-actions` (semanal, agrupado). Amplíalo al ecosistema de paquetes cuando haya manifiesto.
+Lo rellena la skill `setup-proyecto` en la primera tarea del repositorio.
