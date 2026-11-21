@@ -1,41 +1,42 @@
 ---
 name: tdd
-description: Usar solo cuando pidan TDD, un test que falle o un test de regresión, o cuando el fallo tenga un objetivo de test local barato. Omitir si el camino de test es caro, de integración o no está claro.
+description: "Use only when the user explicitly asks for TDD, a failing test, or a regression test, OR when the bug has an obvious cheap local test target. Skip when the test path is unclear, expensive, integration-heavy, or not requested."
+disable-model-invocation: true
 ---
 
-# TDD para corrección de fallos
+# TDD Bug Fix
 
-Cuando corrijas un fallo con un camino de test claro y barato, haz ejecutable el comportamiento roto antes de cambiar el código de producción. El objetivo es un test de regresión acotado que falle antes del arreglo y pase después.
+When fixing a bug with a clear, cheap test path, make the broken behavior executable before changing production code. The goal is a focused regression test that fails before the fix and passes after it.
 
-No fuerces un test cuando sea poco práctico. Si requiere mucho harness, mocks frágiles, infraestructura lenta, estado solo de producción, pasos de reproducción vagos o mucho ruido en fixtures, omite el test nuevo y usa la verificación más cercana útil.
+Do not force a test when it would be impractical. If the available test would require broad harness setup, brittle mocks, slow end-to-end infrastructure, production-only state, vague reproduction steps, or large unrelated fixture churn, skip adding a new test and use the closest useful verification instead.
 
-## Flujo
+## Workflow
 
-1. **Entender el fallo.** Comportamiento esperado, actual, ruta afectada y la reproducción observable más pequeña.
-2. **Elegir el chequeo ejecutable más estrecho.** Prefiere el test unitario, de componente o de integración que ya use esa ruta. Si no hay camino obvio, no inventes uno solo por cumplir el flujo.
-3. **Escribir primero el test que falla.** El test más pequeño que habría detectado el fallo. Codifica comportamiento esperado, no el implementation actual.
-4. **Ejecutar el test nuevo antes del arreglo.** Confirma que falla por la razón correcta. Si pasa o falla por otra cosa, corrige el test o la reproducción antes de tocar la implementación.
-5. **Corregir el fallo.** Cambio mínimo en producción que satisface el comportamiento esperado y preserva contratos cercanos.
-6. **Reejecutar el test de regresión.** Confirma que pasa.
+1. **Understand the bug.** Identify the intended behavior, current behavior, affected path, and smallest observable reproduction.
+2. **Choose the narrowest executable check.** Prefer the closest unit, component, integration, or regression test already used for that codepath. If no practical test path is obvious, do not create one from scratch just to satisfy the workflow.
+3. **Write the failing test first.** Add the smallest focused test that would have caught the bug. The test should encode intended behavior, not mirror the current implementation.
+4. **Run the new test before fixing.** Confirm it fails for the intended reason. If it passes or fails for an unrelated reason, correct the test or reproduction before editing the implementation.
+5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts.
+6. **Rerun the regression test.** Confirm the test now passes.
 
-## Si un test que falle no es práctico
+## If a Failing Test Is Impractical
 
-Usa el chequeo de regresión ejecutable más cercano: script acotado, comando manual de reproducción, comparación de salida, aserción en logs o chequeo de integración focalizado.
+Use the closest executable regression check instead: a targeted script, manual reproduction command, browser automation, snapshot comparison, log assertion, or focused integration check.
 
-Prefiere no añadir test a un mal test. Un mal test prueba mocks, codifica detalles internos, depende de tiempo o estado global ajeno, necesita infraestructura cara para un arreglo pequeño o se borraría al día siguiente.
+Prefer no new test over a bad test. A bad test is one that mostly tests mocks, encodes current implementation details, depends on timing or unrelated global state, needs expensive infrastructure for a small fix, or would be deleted immediately after proving the fix.
 
-## Límites
+## Guardrails
 
-- No cambies tests para que coincidan con una implementación incorrecta.
-- No debilites aserciones existentes salvo que el comportamiento esperado haya cambiado de verdad y la razón quede clara.
-- Mantén el test centrado en el fallo. Evita churn de fixtures o cobertura lateral.
-- Si el fallo es intermitente, haz el test determinista cuando puedas y documenta la señal que fijas.
-- Si el fallo revela una clase más amplia, primero el test focalizado; luego valora cobertura adicional.
+- Do not change tests merely to match a wrong implementation.
+- Do not weaken existing assertions unless the expected behavior has genuinely changed and the reason is clear.
+- Keep the regression test focused on the bug. Avoid broad fixture churn or unrelated coverage expansion.
+- If the bug is flaky, make the test deterministic where possible and document the signal being locked down.
+- If the bug exposes a broader class of failures, first land the focused regression path, then consider additional sibling coverage.
 
-## Respuesta final
+## Final Response
 
-Reporta evidencia, no solo el resultado:
+Report the evidence, not just the outcome:
 
-- Nombre del test o chequeo que fallaba antes y el fallo que produjo.
-- Ejecución que pasa después y validación cercana hecha.
-- Si no pudiste demostrar el fallo antes, explica por qué y qué chequeo de regresión usaste en su lugar.
+- Name the failing-before test or executable check and the failure it produced.
+- Name the passing-after test run and any nearby validation performed.
+- If failing-before evidence could not be demonstrated, state why and describe the closest regression check used instead.

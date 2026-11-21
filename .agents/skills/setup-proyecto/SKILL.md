@@ -14,7 +14,7 @@ Ejecuta esta skill en la primera tarea de un repositorio recién creado desde la
 3. **Rellenar «Este proyecto» en AGENTS.md.** Qué es el proyecto, stack, estructura del código y comandos comprobados (instalación, build, tests, arranque). Incluye buenas prácticas propias del stack y una sección CI/CD: workflows existentes, checks obligatorios en PR y despliegue si aplica.
 4. **Sustituir README.md.** Escribe el README del proyecto: propósito, requisitos y uso. Elimina el texto de la plantilla.
 5. **Dependabot.** Si hay manifiesto de paquetes, amplía `.github/dependabot.yml` al ecosistema correspondiente. Mantén la entrada de `github-actions` si sigue aplicando.
-6. **CI.** Si el stack lo permite, propone un workflow de GitHub Actions que ejecute build y tests en cada pull request. No añadas un workflow genérico que falle sin stack.
+6. **CI.** Si el stack lo permite, propone un workflow de GitHub Actions que ejecute build y tests en cada pull request. No añadas un workflow genérico que falle sin stack. Si el repositorio conserva `.github/workflows/skills.yml` de la plantilla, no lo quites: verifica las skills instaladas (`principle-prove-it-works`, `tdd`, `blast-radius`, `correct`, `unslop`) contra `skills-lock.json`.
 
 ## Reglas
 
