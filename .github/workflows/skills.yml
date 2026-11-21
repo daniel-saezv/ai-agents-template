@@ -30,6 +30,9 @@ jobs:
       - name: Skills match skills-lock.json
         run: npx skills@1.9.0 check -y
 
+      # skills-ref solo valida las skills propias: las de pstack traen
+      # disable-model-invocation en el frontmatter upstream. La integridad de
+      # las instaladas la garantizan skills-lock.json y los pasos anteriores.
       - name: Validate skill metadata (propias)
         run: |
           set -e
