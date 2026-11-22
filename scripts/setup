@@ -3,10 +3,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-# --- stack (setup-proyecto) ---
+# --- stack (project-setup) ---
 install_stack() {
-  echo "scripts/setup: no hay stack. Nada que instalar."
+  echo "scripts/setup: no stack. Nothing to install."
 }
-# --- fin stack ---
+# --- end stack ---
 
 install_stack
