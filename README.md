@@ -1,29 +1,26 @@
-# Plantilla para proyectos con agentes
+# Template for repositories that use agents
 
-Punto de partida para repositorios nuevos que trabajen con Cursor, GitHub Copilot, Codex, Gemini CLI o Claude Code. Crea el tuyo con **Use this template** en GitHub.
+Start a new repository with **Use this template** on GitHub. It works with Cursor, GitHub Copilot, Codex, Gemini CLI, and Claude Code.
 
-## Primer paso
+## First step
 
-Pide al agente que ejecute la skill **setup-proyecto**. Esa skill explora el repositorio, rellena la sección «Este proyecto» en `AGENTS.md`, sustituye este README y propone CI y Dependabot según el stack real.
+Ask the agent to run the **project-setup** skill. It reads this repository, fills in **This project** in `AGENTS.md`, replaces this README, and proposes CI and Dependabot from the stack it finds.
 
-## Qué incluye
+## What is in the template
 
-- `scripts/setup`: preparación idempotente del entorno. Los envoltorios de cada proveedor de agentes en la nube solo invocan este script.
-- `AGENTS.md`: reglas transversales, mantenimiento de skills y, tras el setup, datos del proyecto (stack, estructura, comandos comprobados).
-- `.agents/skills/`: skills del agente; su mantenimiento está en `AGENTS.md` (sección «Mantenimiento de skills»).
-- `skills-lock.json`: versiones fijadas de las skills instaladas desde pstack.
-- `.claude/skills/`: enlaces simbólicos para Claude Code hacia `.agents/skills/`.
-- `.github/copilot-instructions.md`: enlace simbólico a `AGENTS.md` para que Copilot lea las mismas reglas.
-- Plantilla de pull request y Dependabot para GitHub Actions.
+- `scripts/setup` is the idempotent environment setup. Each cloud agent provider wrapper only calls this script.
+- `AGENTS.md` holds the shared rules. After setup, it also holds the project facts. Those are the stack, the layout, and the commands that were run.
+- `.agents/skills/` holds `project-setup` and `agent-environment`.
+- `.claude/skills/` links to those skills so Claude Code loads them.
+- `.github/copilot-instructions.md` links to `AGENTS.md`, so Copilot reads the same rules.
+- A pull request template, and Dependabot for GitHub Actions.
 
-`AGENTS.md` y `.agents/skills/` son la fuente de instrucciones para agentes en Cursor, Copilot, Codex y Gemini CLI. Claude Code lee las mismas skills vía `.claude/skills/`.
+`AGENTS.md` and `.agents/skills/` are the instruction source for Cursor, Copilot, Codex, and Gemini CLI.
 
-## Windows y enlaces simbólicos
+## Windows and symbolic links
 
-Sin `core.symlinks=true`, Git en Windows guarda `.github/copilot-instructions.md` y `.claude/skills/*` como archivos de texto en lugar de enlaces. Actívalo:
+Git on Windows stores `.github/copilot-instructions.md` and `.claude/skills/*` as text files unless `core.symlinks` is true. Turn it on, then clone again.
 
 ```bash
 git config --global core.symlinks true
 ```
-
-Vuelve a clonar el repositorio después de cambiar la opción.

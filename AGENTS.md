@@ -1,51 +1,33 @@
 # AGENTS.md
 
-## Reglas transversales
+## Rules
 
-1. Demuestra que funciona antes de darlo por hecho: comando real, test o captura.
-2. Arregla la causa raíz, no el síntoma.
-3. Resta antes de sumar: borra código muerto antes de añadir.
-4. Haz el cambio mínimo que resuelve, sin capas ni abstracciones especulativas.
-5. Los tests prueban comportamiento observable, no la implementación.
-6. Amplía un test existente antes de crear otro y borra los que dejen de aplicar.
-7. Sin comentarios en el código: que el nombre y la estructura lo expliquen.
-8. Validación y manejo de errores en los bordes del sistema, no repartidos por todo el código.
-9. Operaciones idempotentes: se pueden repetir sin daño.
-10. Una unidad verificable por commit o PR.
-11. Antes de reportar un número, explícalo y mídelo bien.
-12. Si una corrección se repite, conviértela en estructura (test, lint, tipo) y no en otra instrucción.
-13. Nunca inventes comandos, stack ni datos: solo lo comprobado.
-14. Sin ficheros `.md` largos de planes o decisiones; el porqué va en la PR o en el commit.
-15. Prosa breve y sin relleno en PRs, commits y documentación.
-16. No cambies alcance, diseño ni prioridades por tu cuenta; si algo te bloquea, dilo con exactitud.
-17. La preparación del entorno vive en `scripts/setup`. Es idempotente. Los archivos de cada proveedor de agentes en la nube solo lo invocan. Si cambias dependencias, toolchain o pasos de arranque, actualiza el script y comprueba que esos envoltorios siguen funcionando. Si el proyecto usa un proveedor sin envoltorio, créalo.
+1. Verify against the real artifact (run the feature, read the actual value, inspect the diff), not a proxy, self-report, or "it compiles."
+2. Trace each symptom back to the first place the system went wrong and fix it there. A guard is a fix only when the state it handles is legitimate.
+3. Remove dead code, redundant validators, and stub references first, then build on the simpler base.
+4. Bias toward deletion and the smallest change that solves the problem.
+5. Assert what the code's users can observe, so the test fails when that behavior breaks and keeps passing when only the internals change.
+6. Keep a test that catches the first edit and survives the second. Rewrite or delete the rest.
+7. Rename, extract, type, or rearchitecture so the behavior is obvious without prose.
+8. Concentrate guards at system boundaries (CLI, config, network, external APIs). Trust internal types and keep business logic in pure functions.
+9. Design every state-changing operation to converge to the correct state however many times it runs and wherever the previous run stopped.
+10. Break work into small units that each end in a verifiable state, check each before the next, and order delivery so the sequence proves itself. Each commit lands on its own.
+11. Before you trust, report, or act on a measured number, find what limits it, and rule out that it measured something other than the work you think.
+12. Encode a repeated correction as a lint, metadata flag, runtime check, or script instead of more text.
+13. Write the real symbol, file, flag, or command name, not a synonym or a description of it, and make every count or tree claim true at the commit that lands it.
+14. A PR body is a briefing a reviewer can read in under a minute. Do not paste swarm logs, SHA lists, or metric tables. Link them.
+15. Cut every word that does no work in documentation, PR descriptions, and commit messages.
+16. Product direction comes from the human. Proceed on reversible work and present the result. Confirm only irreversible actions.
+17. Environment setup lives in `scripts/setup` and is idempotent. Each cloud agent provider wrapper only calls that script. When dependencies, the toolchain, or startup steps change, update the script and check that the wrappers still work. If the project uses a provider that has no wrapper, add one.
 
-## Mantenimiento de skills
+## Skills
 
-Hay dos clases:
+This template ships `project-setup` and `agent-environment` in `.agents/skills/`. `.claude/skills/` links to those folders so Claude Code loads the same skills.
 
-1. **Instaladas desde pstack** (inglés, instalador oficial): `blast-radius`, `correct`, `principle-prove-it-works`, `tdd` y `unslop`. Se añaden o actualizan con el CLI [`skills`](https://github.com/vercel-labs/skills), por ejemplo:
+## Credit
 
-   ```bash
-   npx skills add cursor/plugins --skill tdd -a cursor -a github-copilot -a codex -a gemini-cli -a claude-code -y
-   ```
+Rules 1 to 16 are adapted from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan, under the MIT license.
 
-   Esas skills pueden nombrar otras de pstack que no vienen en la plantilla (por ejemplo, `blast-radius` menciona `why` y `arena`). Si las necesitas, instálalas con `npx skills add cursor/plugins --skill <nombre>` o con `/add-plugin pstack` en Cursor.
+## This project
 
-2. **Propias de la plantilla** (español): `setup-proyecto`, `entorno-agentes`, `pr-lista`, `technical-writing` y `how`. Viven solo en este repositorio; para que Claude Code las vea, mantén los enlaces en `.claude/skills/` apuntando a `.agents/skills/<nombre>`.
-
-Para actualizar las skills bloqueadas en `skills-lock.json`:
-
-```bash
-npx skills update -y
-```
-
-Revisa el diff, valida con `npx skills check` y commitea `.agents/skills/`, `.claude/skills/` y `skills-lock.json`.
-
-### Créditos de skills de pstack
-
-Skills de [pstack](https://github.com/cursor/plugins/tree/main/pstack) por Lauren Tan (licencia MIT), instaladas con el instalador oficial. Las adaptaciones en español `how` y `technical-writing` derivan del mismo origen; ver `.agents/skills/LICENSE`.
-
-## Este proyecto
-
-Lo rellena la skill `setup-proyecto` en la primera tarea del repositorio.
+The `project-setup` skill fills this section on the first task in the repository.
