@@ -19,6 +19,8 @@
 15. Cut every word that does no work in documentation, PR descriptions, and commit messages.
 16. Product direction comes from the human. Proceed on reversible work and present the result. Confirm only irreversible actions.
 17. Environment setup lives in `scripts/setup` and is idempotent. Each cloud agent provider wrapper only calls that script. When dependencies, the toolchain, or startup steps change, update the script and check that the wrappers still work. If the project uses a provider that has no wrapper, add one.
+18. When adding or upgrading a dependency, package, or framework, use its latest stable release. Check the current release in the registry or official docs; do not rely on a remembered version.
+19. In Node projects, use pnpm: `pnpm install`, `pnpm add`, `pnpm run`, and commit `pnpm-lock.yaml`. Do not add `package-lock.json`.
 
 ## Skills
 
